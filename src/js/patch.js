@@ -62,13 +62,16 @@ export const shuffle = async (rom, seed, flags, reader, log = undefined, progres
 
   const touchShops = true;
 
+  const shouldBuffDyna = seed.toString(16).toLowerCase().startsWith('17bc');
+
   const defines = {
     _ALLOW_TELEPORT_OUT_OF_TOWER: true,
     _AUTO_EQUIP_BRACELET: flags.autoEquipBracelet(),
     _BARRIER_REQUIRES_CALM_SEA: flags.barrierRequiresCalmSea(),
     _BUFF_DEOS_PENDANT: flags.buffDeosPendant(),
-    _BUFF_DYNA: true,
+    _BUFF_DYNA: shouldBuffDyna, // true,
     _CHECK_FLAG0: true,
+    _DEBUG_DIALOG: seed === 0x17bc,
     _DISABLE_SHOP_GLITCH: flags.disableShopGlitch(),
     _DISABLE_STATUE_GLITCH: flags.disableStatueGlitch(),
     _DISABLE_SWORD_CHARGE_GLITCH: flags.disableSwordChargeGlitch(),
@@ -145,7 +148,7 @@ export const shuffle = async (rom, seed, flags, reader, log = undefined, progres
 
   misc(parsed, flags);
 
-  buffDyna(parsed, flags); // TODO - conditional
+  if (shouldBuffDyna) buffDyna(parsed, flags); // TODO - conditional
 
   await assemble('postshuffle.s');
   updateDifficultyScalingTables(rom, flags, asm);
@@ -170,8 +173,11 @@ const misc = (rom, flags) => {
 
 
 const buffDyna = (rom, flags) => {
-  rom.objects[0xb8].collisionPlane = 3;
+  rom.objects[0xb8].collisionPlane = 1;
   rom.objects[0xb8].immobile = 1;
+  rom.objects[0xb9].collisionPlane = 1;
+  rom.objects[0xb9].immobile = 1;
+  rom.objects[0x33].collisionPlane = 2;
 };
 
 const closeCaveEntrances = (rom, flags) => {
@@ -763,7 +769,7 @@ const SCALED_MONSTERS = new Map([
   [0xa4, 'b', 'Dyna',                       6,  5,  32,  ,    ,    ,],
   [0xb4, 'b', 'dyna pod',                   6,  5,  48,  26,  ,    ,],
   [0xb8, 'p', 'dyna counter',              15,  ,   ,    42,  ,    ,],
-  [0xb9, 'p', 'dyna laser',                 ,   ,   ,    42,  ,    ,],
+  [0xb9, 'p', 'dyna laser',                15,  ,   ,    42,  ,    ,],
   [0xba, 'p', 'dyna bubble',                ,   ,   ,    36,  ,    ,],
   //
   [0xbc, 'm', 'vamp2 bat',                  ,   ,   ,    16,  ,    15],
