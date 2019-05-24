@@ -287,13 +287,8 @@ export class Chest extends Slot {
     this.slots.push((rom, slot) => {
       const base = addr(rom, 0x19201, 0x10000, loc);
       const a = base + 4 * (spawnSlot - 0x0b);
-      if (slot.itemIndex >= 0x70) {
-        // mimics respawn on a timer
-        rom[a - 1] |= 0x80;
-      } else {
-        // non-mimics should spawn once on load
-        rom[a - 1] &= 0x7f;
-      }
+      // mimics are initial spawns now, too
+      rom[a - 1] &= 0x7f;
       write(rom, a, Math.min(0x70, slot.itemIndex));
     });
     return this;
