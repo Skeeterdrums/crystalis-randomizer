@@ -38,7 +38,7 @@ esac
 
 # Build up the version.js file.
 {
-  echo "export const STATUS = '$status';"
+  echo "export const STATUS = 'rc';"
   echo "export const VERSION = '$dir';"
   echo "export const LABEL = '$label';"
   echo "export const HASH = '$TRAVIS_COMMIT';"
