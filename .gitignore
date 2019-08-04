@@ -10,3 +10,6 @@ test/testdata
 # npm stuff
 npm_token
 node_modules
+
+# compilations
+**.js.map
