@@ -165,6 +165,11 @@ export class Rom {
     return this.triggers[id & 0x7f];
   }
 
+  tileset(id: number): Tileset {
+    if (id < 0x80 || id > 0xac || id & 3) throw new Error(`Bad tileset id $${hex(id)}`);
+    return this.tilesets[(id & 0x7f) >>> 2];
+  }
+
   // TODO - cross-reference monsters/metasprites/metatiles/screens with patterns/palettes
   // get monsters(): ObjectData[] {
   //   const monsters = new Set<ObjectData>();
@@ -244,13 +249,6 @@ export class Rom {
   //       57 - normal
   //       5f - also normal, but medusa head is flyer?
   //       77 - soldiers, ice zombie
-
-  // Use the browser API to load the ROM.  Use #reset to forget and reload.
-  static async load(patch?: (data: Uint8Array) => Promise<void>) {
-    const file = await pickFile();
-    if (patch) await patch(file);
-    return new Rom(file);
-  }
 
 //   // Don't worry about other datas yet
 //   writeObjectData() {
@@ -535,6 +533,14 @@ export class Rom {
     }
     // Done?!?
   }
+
+  // Use the browser API to load the ROM.  Use #reset to forget and reload.
+  static async load(patch?: (data: Uint8Array) => Promise<void>,
+                    receiver?: (picker: Element) => void) {
+    const file = await pickFile(receiver);
+    if (patch) await patch(file);
+    return new Rom(file);
+  }  
 }
 
 // const intersects = (left, right) => {
@@ -561,7 +567,8 @@ export class Rom {
 // };
 
 // Only makes sense in the browser.
-function pickFile(): Promise<Uint8Array> {
+function pickFile(receiver?: (picker: Element) => void): Promise<Uint8Array> {
+  if (!receiver) receiver = picker => document.body.appendChild(picker);
   return new Promise((resolve) => {
     if (window.location.hash !== '#reset') {
       const data = localStorage.getItem('rom');

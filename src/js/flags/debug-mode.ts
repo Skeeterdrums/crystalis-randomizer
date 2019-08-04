@@ -1,4 +1,4 @@
-import {FlagSection} from './flag';
+import {FlagSection} from './flag.js';
 
 export const DEBUG_MODE_FLAGS: FlagSection = {
   section: 'Debug Mode',

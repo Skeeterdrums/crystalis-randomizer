@@ -13,6 +13,7 @@ const COMMON = [
   'depgraph.js',
   'externs.js',
   'fetchreader.js',
+  'flags/*.js',
   'flagset.js',
   'graph.js',
   'graph/*.js',
@@ -76,6 +77,23 @@ gulp.task('tracker', function() {
         language_out: 'ECMASCRIPT6_STRICT',
         output_wrapper: '(function(){\nconst global=window;%output%\n}).call(this)',
         js_output_file: 'tracker.min.js',
+        module_resolution: 'WEBPACK',
+      }, {
+        platform: ['native', 'java', 'javascript'],
+      }))
+      .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('edit', function() {
+  return gulp.src(srcs(...COMMON, 'edit/*.js'),
+                  {base: './src/js/'})
+      .pipe(closure({
+        compilation_level: 'SIMPLE',
+        warning_level: 'VERBOSE',
+        language_in: 'ECMASCRIPT_2018',
+        language_out: 'ECMASCRIPT6_STRICT',
+        output_wrapper: '(function(){\nconst global=window;%output%\n}).call(this)',
+        js_output_file: 'edit.min.js',
         module_resolution: 'WEBPACK',
       }, {
         platform: ['native', 'java', 'javascript'],

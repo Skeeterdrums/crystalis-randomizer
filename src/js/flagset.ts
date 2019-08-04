@@ -1,15 +1,15 @@
-import {DEBUG_MODE_FLAGS} from './flags/debug-mode';
-import {EASY_MODE_FLAGS} from './flags/easy-mode';
-import {Flag, FlagSection, Preset} from './flags/flag';
-import {GLITCH_FIX_FLAGS} from './flags/glitch-fixes';
-import {GLITCH_FLAGS} from './flags/glitches';
-import {HARD_MODE_FLAGS} from './flags/hard-mode';
-import {ITEM_FLAGS} from './flags/items';
-import {MONSTER_FLAGS} from './flags/monsters';
-import {ROUTING_FLAGS} from './flags/routing';
-import {SHOP_FLAGS} from './flags/shops';
-import {TWEAK_FLAGS} from './flags/tweaks';
-import {WORLD_FLAGS} from './flags/world';
+import {DEBUG_MODE_FLAGS} from './flags/debug-mode.js';
+import {EASY_MODE_FLAGS} from './flags/easy-mode.js';
+import {Flag, FlagSection, Preset} from './flags/flag.js';
+import {GLITCH_FIX_FLAGS} from './flags/glitch-fixes.js';
+import {GLITCH_FLAGS} from './flags/glitches.js';
+import {HARD_MODE_FLAGS} from './flags/hard-mode.js';
+import {ITEM_FLAGS} from './flags/items.js';
+import {MONSTER_FLAGS} from './flags/monsters.js';
+import {ROUTING_FLAGS} from './flags/routing.js';
+import {SHOP_FLAGS} from './flags/shops.js';
+import {TWEAK_FLAGS} from './flags/tweaks.js';
+import {WORLD_FLAGS} from './flags/world.js';
 import {UsageError} from './util.js';
 
 const REPEATABLE_FLAGS: Set<string> = new Set(['S']);

@@ -1,4 +1,4 @@
-import {FlagSection} from './flag';
+import {FlagSection} from './flag.js';
 
 export const SHOP_FLAGS: FlagSection = {
   section: 'Shops',

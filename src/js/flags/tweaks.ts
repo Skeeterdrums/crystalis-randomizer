@@ -1,4 +1,4 @@
-import {FlagSection} from './flag';
+import {FlagSection} from './flag.js';
 
 export const TWEAK_FLAGS: FlagSection = {
   section: 'Tweaks',

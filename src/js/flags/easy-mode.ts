@@ -1,4 +1,4 @@
-import {FlagSection} from './flag';
+import {FlagSection} from './flag.js';
 
 export const EASY_MODE_FLAGS: FlagSection = {
   section: 'Easy Mode',

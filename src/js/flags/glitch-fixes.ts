@@ -1,4 +1,4 @@
-import {FlagSection} from './flag';
+import {FlagSection} from './flag.js';
 
 export const GLITCH_FIX_FLAGS: FlagSection = {
   section: 'Glitch Fixes',
